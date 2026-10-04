@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101111">
+  <title>MIDI KEY · Tu laboratorio de sonidos</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23e7a66e'/%3E%3Cpath d='M16 18v28m16-28v28m16-28v28' stroke='%23101111' stroke-width='7'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="MIDI Key inicio"><span class="brand-mark"><i></i><i></i><i></i><i></i></span>MIDI<span class="brand-light">KEY</span><span class="beta">STUDIO</span></a>
+    <div class="top-right"><span class="local-indicator"><i></i> Hecho para tu Mac</span><button id="helpButton" class="icon-button" aria-label="Cómo conectar tu teclado">?</button></div>
+  </header>
+  <main>
+    <div class="intro"><div><div class="eyebrow">UN TECLADO. INFINITAS IDEAS.</div><h1>Encuentra tu <em>sonido.</em></h1><p>Conecta tu Akai. Explora, crea y deja que tus manos hablen.</p></div><button id="audioButton" class="primary"><span class="play-icon">▶</span> Activar audio</button></div>
+    <section class="connection-bar" aria-label="Conexión MIDI">
+      <div class="connection-label"><span class="status-dot" id="midiDot"></span><div><strong id="midiStatus">Tu teclado, cuando quieras</strong><small id="midiHint">Conecta el Akai por USB y pulsa Conectar MIDI.</small></div></div>
+      <div class="connection-actions"><select id="midiInput" aria-label="Entrada MIDI" hidden></select><button id="midiButton" class="secondary">↔ &nbsp; Conectar MIDI</button></div>
+    </section>
+    <div class="workspace">
+      <aside class="library panel">
+        <div class="section-header"><div><span class="eyebrow">TU PALETA</span><h2>Sonidos</h2></div><span id="presetCount" class="count">06</span></div>
+        <div class="filters" role="group" aria-label="Filtrar sonidos"><button class="filter active" data-filter="Todos">Todos</button><button class="filter" data-filter="Pad">Pads</button><button class="filter" data-filter="Keys">Teclas</button><button class="filter" data-filter="Personal">Mis sonidos</button></div>
+        <div id="presetList" class="preset-list" aria-label="Banco de sonidos"></div>
+        <div class="library-footer"><span class="sync-dot"></span><span id="syncStatus">Banco conectado a este proyecto</span></div>
+      </aside>
+      <section class="instrument panel" aria-label="Sintetizador">
+        <div class="instrument-head"><div><span id="soundCategory" class="sound-tag">PAD / 01</span><h2 id="soundName">Órbita</h2><p id="soundDescription">Un colchón cálido y envolvente.</p></div><button id="saveButton" class="secondary small">＋ Guardar sonido</button></div>
+        <div class="scope"><canvas id="scope" aria-label="Visualización de la onda de audio"></canvas><div class="scope-label"><span><i id="audioDot" class="status-dot"></i><span id="audioState">AUDIO EN PAUSA</span></span><span id="voiceCount">0 / 24 VOCES</span></div><span class="scope-corner">FORMA DE ONDA</span></div>
+        <div class="control-section"><div class="control-heading"><h3>El carácter</h3><span>DALE TU FORMA</span></div><div class="oscillator-row"><label>Oscilador A<select id="wave"><option value="sawtooth">Diente de sierra</option><option value="triangle">Triangular</option><option value="sine">Senoidal</option><option value="square">Cuadrada</option></select></label><label>Oscilador B<select id="wave2"><option value="triangle">Triangular</option><option value="sawtooth">Diente de sierra</option><option value="sine">Senoidal</option><option value="square">Cuadrada</option></select></label></div><div id="characterControls" class="controls-grid"></div></div>
+        <div class="control-section envelope-section"><div class="control-heading"><h3>La evolución</h3><span>ENVOLVENTE ADSR</span></div><div id="envelopeControls" class="controls-grid"></div></div>
+        <div class="control-section effects-section"><div class="control-heading"><h3>El espacio</h3><span>EFECTOS</span></div><div id="effectsControls" class="controls-grid"></div></div>
+        <details class="advanced"><summary>Ajustes avanzados <span>＋</span></summary><div id="advancedControls" class="controls-grid"></div></details>
+      </section>
+      <aside class="creator panel">
+        <div class="creator-icon">✳</div><span class="eyebrow">DE UNA IDEA A UN SONIDO</span><h2>¿A qué quieres<br>que suene?</h2><p>Describe una textura y empieza a explorar.</p>
+        <form id="createForm"><label for="prompt" class="sr-only">Describe el sonido que quieres crear</label><textarea id="prompt" maxlength="240" placeholder="Un pad cálido y espacial, con ataque lento y mucho reverb…" required></textarea><button class="primary" id="createButton" type="submit">✳ &nbsp; Crear sonido <span>↗</span></button></form>
+        <div class="suggestions"><span>PRUEBA CON</span><button data-prompt="Un bajo profundo y agresivo, sin efectos">Bajo profundo <span>↗</span></button><button data-prompt="Campanas brillantes y espaciales con eco">Campanas de cristal <span>↗</span></button><button data-prompt="Un lead de videojuego 8-bit corto">Un toque de 8-bit <span>↗</span></button></div>
+        <div class="chat-note"><span>↗</span><div><strong>Sigamos creando en el chat</strong><p>Pídeme un sonido aquí en Codex. Lo añadiré a este banco y aparecerá automáticamente.</p></div></div>
+        <p class="creator-disclosure">Este creador usa recetas locales. Los sonidos a medida los diseñamos contigo en el chat.</p>
+        <button id="importButton" class="text-button">↓ Importar sonido JSON</button><button id="exportButton" class="text-button">↑ Exportar sonido actual</button><input id="importFile" type="file" accept="application/json,.json" hidden>
+      </aside>
+    </div>
+    <section class="keyboard-panel panel" aria-label="Teclado virtual">
+      <div class="keyboard-toolbar"><div class="keyboard-title"><span class="status-dot" id="noteDot"></span><strong>A tocar.</strong><span id="lastNote">Con tu Akai, el ratón o las teclas del Mac.</span></div><div class="keyboard-settings"><div class="octave-control"><span>OCTAVA</span><button id="octaveDown" aria-label="Bajar octava">−</button><output id="octaveValue">4</output><button id="octaveUp" aria-label="Subir octava">＋</button></div><label class="volume-control">VOL <input id="volume" type="range" min="0" max="100" value="55" aria-label="Volumen maestro"><output id="volumeValue">55%</output></label><button id="panicButton" class="panic" title="Detener todas las notas (Escape)">■ <span>Silencio</span></button></div></div>
+      <div class="keyboard-scroll"><div id="keyboard" class="keyboard"></div></div>
+      <div class="keyboard-bottom"><span><kbd>A</kbd>–<kbd>K</kbd> notas · <kbd>W</kbd> <kbd>E</kbd> <kbd>T</kbd> <kbd>Y</kbd> <kbd>U</kbd> sostenidos · <kbd>Z</kbd> / <kbd>X</kbd> octava</span><span>VELOCIDAD · SUSTAIN · PITCH BEND</span></div>
+    </section>
+    <footer><span>MIDI KEY <span class="footer-divider">/</span> Tu pequeño laboratorio sonoro.</span><span>Local. Sin cuentas. Solo música. <span class="footer-star">✳</span></span></footer>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="helpDialog"><button id="closeHelp" class="dialog-close" aria-label="Cerrar ayuda">×</button><span class="eyebrow">LISTO EN UN MOMENTO</span><h2>Tu Akai + tu Mac.</h2><ol><li>Conecta el teclado Akai al Mac con un cable USB de datos. Usa un adaptador USB-C si hace falta.</li><li>Abre esta interfaz en <strong>Google Chrome</strong> y pulsa <strong>Activar audio</strong>.</li><li>Pulsa <strong>Conectar MIDI</strong> y permite el acceso a los dispositivos MIDI.</li><li>Elige un sonido y toca. Si aparecen varios puertos, selecciona el del Akai.</li></ol><p>El MIDI envía notas; el sonido sale por los altavoces o auriculares del Mac. También puedes probar sin el Akai con el teclado en pantalla.</p><p>Para crear algo a medida, escribe en el chat de Codex: «Crea un pad oscuro con una cola larga». El banco se actualiza automáticamente.</p></dialog>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
